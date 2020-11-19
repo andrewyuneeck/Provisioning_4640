@@ -1,0 +1,17 @@
+---
+- host: nginx
+  become: true
+  task:
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+    - name: Provision Nginx.conf    
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf  
+    - name: Enable & start nginx
+      systemd:
+        name: nginx
+        enable: yes
+        state: started  

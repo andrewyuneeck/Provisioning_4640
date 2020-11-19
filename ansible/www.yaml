@@ -1,0 +1,17 @@
+---
+- hosts: nginx
+  become: yes
+  tasks:
+    - name: Make sure that Nginx is installed
+      package:
+        name: nginx
+        state: present
+    - name: provisionin nginx.conf
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf  
+    - name: Make sure Nginx is running
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started      
